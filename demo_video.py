@@ -23,7 +23,6 @@ import cv2
 import os
 import argparse
 from math import cos, sin
-from PIL import Image
 import onnxruntime
 import numba as nb
 
@@ -325,9 +324,33 @@ def main(args):
                     tdy=(y_min+y_max)/2,
                     size=abs(x_max-x_min)//2
                 )
-                cv2.putText(canvas, f'yaw: {np.round(yaw)}', (int(x_min), int(y_min)), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (100, 255, 0), 1)
-                cv2.putText(canvas, f'pitch: {np.round(pitch)}', (int(x_min), int(y_min) - 15), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (100, 255, 0), 1)
-                cv2.putText(canvas, f'roll: {np.round(roll)}', (int(x_min), int(y_min)-30), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (100, 255, 0), 1)
+                cv2.putText(
+                    canvas,
+                    f'yaw: {np.round(yaw)}',
+                    (int(x_min), int(y_min)),
+                    cv2.FONT_HERSHEY_SIMPLEX,
+                    0.4,
+                    (100, 255, 0),
+                    1
+                )
+                cv2.putText(
+                    canvas,
+                    f'pitch: {np.round(pitch)}',
+                    (int(x_min), int(y_min) - 15),
+                    cv2.FONT_HERSHEY_SIMPLEX,
+                    0.4,
+                    (100, 255, 0),
+                    1
+                )
+                cv2.putText(
+                    canvas,
+                    f'roll: {np.round(roll)}',
+                    (int(x_min), int(y_min)-30),
+                    cv2.FONT_HERSHEY_SIMPLEX,
+                    0.4,
+                    (100, 255, 0),
+                    1
+                )
 
             # cv2.imshow('Face', croped_resized_frame)
 
