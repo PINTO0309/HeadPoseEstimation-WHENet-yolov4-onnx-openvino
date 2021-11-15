@@ -34,3 +34,4 @@ optional arguments:
 1. https://github.com/Ascend-Research/HeadPoseEstimation-WHENet
 2. https://github.com/linghu8812/tensorrt_inference
 3. https://github.com/jkjung-avt/yolov4_crowdhuman
+4. https://github.com/PINTO0309/PINTO_model_zoo
