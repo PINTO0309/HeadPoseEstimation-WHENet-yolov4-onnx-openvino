@@ -37,3 +37,4 @@ optional arguments:
 4. https://github.com/jkjung-avt/yolov4_crowdhuman
 5. https://github.com/PINTO0309/PINTO_model_zoo
 6. https://github.com/PINTO0309/openvino2tensorflow
+7. https://zenn.dev/pinto0309/scraps/1849b6909db13b
