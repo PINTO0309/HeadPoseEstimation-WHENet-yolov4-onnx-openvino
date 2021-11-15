@@ -29,3 +29,8 @@ optional arguments:
   --height_width HEIGHT_WIDTH
       {H}x{W} Default: 480x640
 ```
+
+## 2. Reference
+1. https://github.com/Ascend-Research/HeadPoseEstimation-WHENet
+2. https://github.com/linghu8812/tensorrt_inference
+3. https://github.com/jkjung-avt/yolov4_crowdhuman
