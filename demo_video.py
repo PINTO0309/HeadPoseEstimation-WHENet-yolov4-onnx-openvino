@@ -160,6 +160,8 @@ def main(args):
     whenet_input_name = None
     whenet_output_names = None
     whenet_output_shapes = None
+    mean = [0.485, 0.456, 0.406]
+    std = [0.229, 0.224, 0.225]
     if args.whenet_mode == 'onnx':
         whenet = onnxruntime.InferenceSession(
             f'saved_model_{whenet_H}x{whenet_W}/model_float32.onnx'
@@ -274,8 +276,6 @@ def main(args):
                 # bgr --> rgb
                 rgb = croped_resized_frame[..., ::-1]
                 # Normalization
-                mean = [0.485, 0.456, 0.406]
-                std = [0.229, 0.224, 0.225]
                 rgb = ((rgb / 255.0) - mean) / std
                 # hwc --> chw
                 chw = rgb.transpose(2, 0, 1)
