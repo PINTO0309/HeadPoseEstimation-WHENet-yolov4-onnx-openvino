@@ -32,7 +32,8 @@ optional arguments:
 
 ## 2. Reference
 1. https://github.com/Ascend-Research/HeadPoseEstimation-WHENet
-2. https://github.com/linghu8812/tensorrt_inference
-3. https://github.com/jkjung-avt/yolov4_crowdhuman
-4. https://github.com/PINTO0309/PINTO_model_zoo
-5. https://github.com/PINTO0309/openvino2tensorflow
+2. https://github.com/AlexeyAB/darknet
+3. https://github.com/linghu8812/tensorrt_inference
+4. https://github.com/jkjung-avt/yolov4_crowdhuman
+5. https://github.com/PINTO0309/PINTO_model_zoo
+6. https://github.com/PINTO0309/openvino2tensorflow
