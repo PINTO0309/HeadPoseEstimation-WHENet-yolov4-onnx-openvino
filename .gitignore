@@ -1,0 +1,10 @@
+*.tar.gz
+__pycache__
+saved_model*
+*.pb
+*.xml
+*.bin
+*.onnx
+*.tflite
+*.trt
+*.mlmodel
