@@ -7,7 +7,7 @@ ONNX, OpenVINO, TFLite, TensorRT, EdgeTPU, CoreML, TFJS, YOLOv4/YOLOv4-tiny-3L
 ```bash
 $ git clone https://github.com/PINTO0309/HeadPoseEstimation-WHENet-yolov4-onnx-openvino
 $ cd HeadPoseEstimation-WHENet-yolov4-onnx-openvino
-$ wget https://github.com/PINTO0309/HeadPoseEstimation-WHENet-yolov4-onnx-openvino/releases/download/v1.0.0/saved_model_224x224.tar.gz
+$ wget https://github.com/PINTO0309/HeadPoseEstimation-WHENet-yolov4-onnx-openvino/releases/download/v1.0.2/saved_model_224x224.tar.gz
 $ tar -zxvf saved_model_224x224.tar.gz && rm saved_model_224x224.tar.gz
 
 $ python3 demo_video.py
