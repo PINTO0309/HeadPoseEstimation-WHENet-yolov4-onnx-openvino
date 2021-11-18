@@ -34,7 +34,8 @@ optional arguments:
 1. https://github.com/Ascend-Research/HeadPoseEstimation-WHENet
 2. https://github.com/AlexeyAB/darknet
 3. https://github.com/linghu8812/tensorrt_inference
-4. https://github.com/jkjung-avt/yolov4_crowdhuman
-5. https://github.com/PINTO0309/PINTO_model_zoo
-6. https://github.com/PINTO0309/openvino2tensorflow
-7. https://zenn.dev/pinto0309/scraps/1849b6909db13b
+4. https://github.com/Tianxiaomo/pytorch-YOLOv4
+5. https://github.com/jkjung-avt/yolov4_crowdhuman
+6. https://github.com/PINTO0309/PINTO_model_zoo
+7. https://github.com/PINTO0309/openvino2tensorflow
+8. https://zenn.dev/pinto0309/scraps/1849b6909db13b
