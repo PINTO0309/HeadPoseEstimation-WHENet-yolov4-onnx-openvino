@@ -38,5 +38,5 @@ optional arguments:
 5. https://github.com/Tianxiaomo/pytorch-YOLOv4
 6. https://github.com/PINTO0309/PINTO_model_zoo
 7. https://github.com/PINTO0309/openvino2tensorflow
-8. https://zenn.dev/pinto0309/scraps/1849b6909db13b
-9. https://zenn.dev/pinto0309/scraps/b33883e3951605
+8. [Exporting WHENet](https://zenn.dev/pinto0309/scraps/1849b6909db13b)
+9. [Darknet to ONNX to OpenVINO to TensorFlow to TFLite and Others](https://zenn.dev/pinto0309/scraps/b33883e3951605)
