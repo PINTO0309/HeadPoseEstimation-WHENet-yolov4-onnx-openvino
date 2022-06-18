@@ -168,7 +168,7 @@ def main(args):
     std = [0.229, 0.224, 0.225]
     if args.whenet_mode == 'onnx':
         whenet = onnxruntime.InferenceSession(
-            f'saved_model_{whenet_H}x{whenet_W}/model_float32.onnx',
+            f'saved_model_{whenet_H}x{whenet_W}/whenet_1x3x224x224_prepost.onnx',
             providers=[
                 'CUDAExecutionProvider',
                 'CPUExecutionProvider',
@@ -176,10 +176,6 @@ def main(args):
         )
         whenet_input_name = whenet.get_inputs()[0].name
         whenet_output_names = [output.name for output in whenet.get_outputs()]
-        whenet_output_shapes = [output.shape for output in whenet.get_outputs()]
-        assert whenet_output_shapes[0] == [1, 120] # yaw
-        assert whenet_output_shapes[1] == [1, 66]  # roll
-        assert whenet_output_shapes[2] == [1, 66]  # pitch
 
     exec_net = None
     input_name = None
@@ -283,8 +279,6 @@ def main(args):
                 croped_resized_frame = cv2.resize(croped_frame, (whenet_W, whenet_H))
                 # bgr --> rgb
                 rgb = croped_resized_frame[..., ::-1]
-                # Normalization
-                rgb = ((rgb / 255.0) - mean) / std
                 # hwc --> chw
                 chw = rgb.transpose(2, 0, 1)
                 # chw --> nchw
@@ -294,19 +288,21 @@ def main(args):
                 pitch = 0.0
                 roll = 0.0
                 if args.whenet_mode == 'onnx':
-                    yaw, roll, pitch = whenet.run(
+                    outputs = whenet.run(
                         output_names = whenet_output_names,
                         input_feed = {whenet_input_name: nchw}
                     )
+                    yaw = outputs[0][0][0]
+                    roll = outputs[0][0][1]
+                    pitch = outputs[0][0][2]
                 elif args.whenet_mode == 'openvino':
+                    # Normalization
+                    rgb = ((rgb / 255.0) - mean) / std
                     output = exec_net.infer(inputs={input_name: nchw})
                     yaw = output['yaw_new/BiasAdd/Add']
-                    pitch = output['pitch_new/BiasAdd/Add']
                     roll = output['roll_new/BiasAdd/Add']
+                    pitch = output['pitch_new/BiasAdd/Add']
 
-                yaw = np.sum(softmax(yaw) * idx_tensor_yaw, axis=1) * 3 - 180
-                pitch = np.sum(softmax(pitch) * idx_tensor, axis=1) * 3 - 99
-                roll = np.sum(softmax(roll) * idx_tensor, axis=1) * 3 - 99
                 yaw, pitch, roll = np.squeeze([yaw, pitch, roll])
 
                 print(f'yaw: {yaw}, pitch: {pitch}, roll: {roll}')

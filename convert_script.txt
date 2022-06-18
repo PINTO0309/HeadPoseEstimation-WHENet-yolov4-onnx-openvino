@@ -155,7 +155,7 @@ sor4onnx \
 
 sor4onnx \
 --input_onnx_file_path post_process_whenet.onnx \
---old_new "Identity" "yaw_pitch_roll" \
+--old_new "Identity" "yaw_roll_pitch" \
 --output_onnx_file_path post_process_whenet.onnx \
 --mode outputs
 
@@ -176,7 +176,3 @@ snc4onnx \
 --input_onnx_file_paths whenet_1x3x224x224_prepost.onnx post_process_whenet.onnx \
 --srcop_destop tf.identity post_yaw tf.identity_1 post_pitch tf.identity_2 post_roll \
 --output_onnx_file_path whenet_1x3x224x224_prepost.onnx
-
-
-
-
