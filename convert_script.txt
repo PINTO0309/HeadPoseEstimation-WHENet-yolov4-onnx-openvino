@@ -71,3 +71,112 @@ openvino2tensorflow \
 mv saved_model/model_float32.onnx saved_model_${H}x${W}
 
 onnx2trt saved_model_${H}x${W}/model_float32.onnx -o saved_model_${H}x${W}/whenet_rtx3070.trt -b 1 -d 16 -v
+
+
+###############################################################
+
+python make_pre_process.py
+
+mv saved_model_preprocess/test.tflite pre_process_whenet.tflite
+
+python -m tf2onnx.convert \
+--opset 11 \
+--inputs-as-nchw input_1 \
+--tflite pre_process_whenet.tflite \
+--output pre_process_whenet.onnx
+
+onnxsim pre_process_whenet.onnx pre_process_whenet.onnx
+onnxsim pre_process_whenet.onnx pre_process_whenet.onnx
+
+snd4onnx \
+--remove_node_names Transpose__11 \
+--input_onnx_file_path pre_process_whenet.onnx \
+--output_onnx_file_path pre_process_whenet.onnx
+
+sor4onnx \
+--input_onnx_file_path pre_process_whenet.onnx \
+--old_new "input_1" "input" \
+--output_onnx_file_path pre_process_whenet.onnx \
+--mode inputs
+
+sor4onnx \
+--input_onnx_file_path pre_process_whenet.onnx \
+--old_new "Identity_raw_output___3:0" "pre_output" \
+--output_onnx_file_path pre_process_whenet.onnx \
+--mode outputs
+
+
+
+python make_post_process.py
+
+mv saved_model_postprocess/test.tflite post_process_whenet.tflite
+
+docker run --gpus all -it --rm \
+-v `pwd`:/home/user/workdir \
+ghcr.io/pinto0309/tflite2tensorflow:latest
+
+
+tflite2tensorflow \
+--model_path post_process_whenet.tflite \
+--flatc_path ../flatc \
+--schema_path ../schema.fbs \
+--output_pb \
+--optimizing_for_openvino_and_myriad
+
+tflite2tensorflow \
+--model_path post_process_whenet.tflite \
+--flatc_path ../flatc \
+--schema_path ../schema.fbs \
+--output_onnx \
+--onnx_opset 11
+
+mv saved_model/model_float32.onnx post_process_whenet.onnx
+
+onnxsim post_process_whenet.onnx post_process_whenet.onnx
+onnxsim post_process_whenet.onnx post_process_whenet.onnx
+
+sor4onnx \
+--input_onnx_file_path post_process_whenet.onnx \
+--old_new "input_1" "post_yaw" \
+--output_onnx_file_path post_process_whenet.onnx \
+--mode inputs
+
+sor4onnx \
+--input_onnx_file_path post_process_whenet.onnx \
+--old_new "input_2" "post_pitch" \
+--output_onnx_file_path post_process_whenet.onnx \
+--mode inputs
+
+sor4onnx \
+--input_onnx_file_path post_process_whenet.onnx \
+--old_new "input_3" "post_roll" \
+--output_onnx_file_path post_process_whenet.onnx \
+--mode inputs
+
+sor4onnx \
+--input_onnx_file_path post_process_whenet.onnx \
+--old_new "Identity" "yaw_pitch_roll" \
+--output_onnx_file_path post_process_whenet.onnx \
+--mode outputs
+
+sor4onnx \
+--input_onnx_file_path post_process_whenet.onnx \
+--old_new "Identity" "post_sub" \
+--output_onnx_file_path post_process_whenet.onnx
+
+exit
+
+
+snc4onnx \
+--input_onnx_file_paths pre_process_whenet.onnx model_float32.onnx \
+--srcop_destop pre_output input_1 \
+--output_onnx_file_path whenet_1x3x224x224_prepost.onnx
+
+snc4onnx \
+--input_onnx_file_paths whenet_1x3x224x224_prepost.onnx post_process_whenet.onnx \
+--srcop_destop tf.identity post_yaw tf.identity_1 post_pitch tf.identity_2 post_roll \
+--output_onnx_file_path whenet_1x3x224x224_prepost.onnx
+
+
+
+

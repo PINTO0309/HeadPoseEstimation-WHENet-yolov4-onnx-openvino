@@ -148,7 +148,11 @@ def main(args):
     # YOLOv4-Head
     yolov4_model_name = 'yolov4_headdetection'
     yolov4_head = onnxruntime.InferenceSession(
-        f'saved_model_{whenet_H}x{whenet_W}/{yolov4_model_name}_{yolov4_head_H}x{yolov4_head_W}.onnx'
+        f'saved_model_{whenet_H}x{whenet_W}/{yolov4_model_name}_{yolov4_head_H}x{yolov4_head_W}.onnx',
+        providers=[
+            'CUDAExecutionProvider',
+            'CPUExecutionProvider',
+        ]
     )
     yolov4_head_input_name = yolov4_head.get_inputs()[0].name
     yolov4_head_output_names = [output.name for output in yolov4_head.get_outputs()]
@@ -164,7 +168,11 @@ def main(args):
     std = [0.229, 0.224, 0.225]
     if args.whenet_mode == 'onnx':
         whenet = onnxruntime.InferenceSession(
-            f'saved_model_{whenet_H}x{whenet_W}/model_float32.onnx'
+            f'saved_model_{whenet_H}x{whenet_W}/model_float32.onnx',
+            providers=[
+                'CUDAExecutionProvider',
+                'CPUExecutionProvider',
+            ]
         )
         whenet_input_name = whenet.get_inputs()[0].name
         whenet_output_names = [output.name for output in whenet.get_outputs()]

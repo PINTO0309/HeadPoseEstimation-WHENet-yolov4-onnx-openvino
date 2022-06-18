@@ -8,3 +8,5 @@ saved_model*
 *.tflite
 *.trt
 *.mlmodel
+.vscode/
+*.json
