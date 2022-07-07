@@ -40,7 +40,7 @@ optional arguments:
 7. https://github.com/PINTO0309/openvino2tensorflow
 8. [Exporting WHENet](https://zenn.dev/pinto0309/scraps/1849b6909db13b)
 9. [Darknet to ONNX to OpenVINO to TensorFlow to TFLite and Others](https://zenn.dev/pinto0309/scraps/b33883e3951605)
-10. [Dual model head pose estimation. Fusion of SOTA models. 360° 6D HeadPose detection. All pre-processing and post-processing are fused together, allowing end-to-end processing in a single inference](https://github.com/PINTO0309/DMHead)
+10. [Dual model head pose estimation. Fusion of SOTA models. 360° 6D HeadPose detection. All pre-processing and post-processing are fused together, allowing end-to-end processing in a single inference. 6DRepNet+WHENet](https://github.com/PINTO0309/DMHead)
 
 ## 3. Special Custom Model Structure
 ![whenet_1x3x224x224_prepost onnx](https://user-images.githubusercontent.com/33194443/174461110-32171aae-a11d-4329-99c5-3872aba70429.png)
